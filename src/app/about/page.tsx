@@ -25,7 +25,7 @@ export default async function AboutPage() {
       </p>
       <a
         className="rounded-xl hover:bg-[#FF0069]"
-        href="https://www.instagram.com/ncsfoodreviews/"
+        href="https://www.instagram.com/ncs.food/"
         target="_blank"
         rel="noopener noreferrer"
       >
