@@ -1,98 +1,60 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 import { Review } from "@/types/reviews";
 import { createClient } from "../utils/supabase/server";
 import { cookies } from "next/headers";
 
-export async function getReviews(): Promise<Review[]> {
-  // If running on the server (build/SSR), use Supabase client directly to avoid
-  // making a network request to localhost which may not be available during build.
-  if (typeof window === "undefined") {
-    const cookieStore = await cookies();
+export async function getReviews(sort: string): Promise<Review[]> {
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
 
-    const supabase = await createClient(cookieStore);
+  let query = supabase.from("reviews").select("*");
 
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      throw new Error("Failed to fetch reviews: " + error.message);
-    }
-
-    return data ?? [];
+  if (sort === "date") {
+    query = query.order("created_at", { ascending: false });
+  } else if (sort === "rating") {
+    query = query.order("rating", { ascending: false });
+  } else if (sort === "restaurantName") {
+    query = query.order("restaurant", { ascending: true });
   }
 
-  const response = await fetch(`${BASE_URL}/api/reviews`, {
-    next: { revalidate: 60 }, // Cache for 60 seconds
-  });
+  const { data, error } = await query;
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch reviews");
+  if (error) {
+    throw new Error("Failed to fetch reviews: " + error.message);
   }
 
-  const { data } = await response.json();
-  return data;
+  return data ?? [];
 }
 
 export async function getReview(id: string): Promise<Review> {
-  if (typeof window === "undefined") {
-    const cookieStore = await cookies();
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
 
-    const supabase = await createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("*")
+    .eq("uuid", id)
+    .single();
 
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .eq("uuid", id)
-      .single();
-
-    if (error) {
-      throw new Error("Failed to fetch review: " + error.message);
-    }
-
-    return data as Review;
+  if (error) {
+    throw new Error("Failed to fetch review: " + error.message);
   }
 
-  const response = await fetch(`${BASE_URL}/api/reviews/${id}`, {
-    next: { revalidate: 60 }, // Cache for 60 seconds
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch review");
-  }
-
-  const { data } = await response.json();
-  return data;
+  return data as Review;
 }
 
 export async function getRecentReviews(limit: number = 3): Promise<Review[]> {
-  if (typeof window === "undefined") {
-    const cookieStore = await cookies();
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
 
-    const supabase = await createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
 
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(limit);
-
-    if (error) {
-      throw new Error("Failed to fetch recent reviews: " + error.message);
-    }
-
-    return data ?? [];
+  if (error) {
+    throw new Error("Failed to fetch recent reviews: " + error.message);
   }
 
-  const response = await fetch(`${BASE_URL}/api/reviews?limit=${limit}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch recent reviews");
-  }
-
-  const { data } = await response.json();
-  return data;
+  return data ?? [];
 }
