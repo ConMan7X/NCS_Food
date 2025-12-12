@@ -20,7 +20,7 @@ export default function SortSelect({ sort }: { sort: string }) {
         className="
                   w-48
                   rounded-xl
-                  bg-teal-900
+                  bg-bg-200
                   p-1
                   px-3
                   text-white

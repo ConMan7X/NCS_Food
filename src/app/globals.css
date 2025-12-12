@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 @theme inline {
   --color-background: var(--background);
@@ -41,11 +41,21 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-text-100: var(--text-100);
+  --color-text-200: var(--text-200);
+  --color-bg-100: var(--bg-100);
+  --color-bg-200: var(--bg-200);
+  --color-bg-300: var(--bg-300);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: rgb(12, 34, 34);
+  --background: #0F1C2E;
   --foreground: oklch(1 0 0);
   --card: oklch(0.208 0.042 265.755);
   --card-foreground: oklch(0.984 0.003 247.858);
@@ -76,9 +86,19 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --primary-100:#1F3A5F;
+  --primary-200:#4d648d;
+  --primary-300:#acc2ef;
+  --accent-100:#3D5A80;
+  --accent-200:#cee8ff;
+  --text-100:#FFFFFF;
+  --text-200:#e0e0e0;
+  --bg-100:#0F1C2E;
+  --bg-200:#1f2b3e;
+  --bg-300:#374357;
 }
 
-.dark {
+/* .dark {
   --background: rgb(12, 34, 34);
   --foreground: oklch(24.862% 0.05334 163.544);
   --card: oklch(0.208 0.042 265.755);
@@ -110,7 +130,7 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
-}
+} */
 
 @layer base {
   * {

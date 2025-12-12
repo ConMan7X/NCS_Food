@@ -19,9 +19,9 @@ export default function Navbar() {
           <div className="flex space-x-8">
             <Link
               href="/"
-              className={`transition-colors hover:text-emerald-600 ${
+              className={`transition-colors hover:text-accent-100 ${
                 pathname === "/"
-                  ? "text-emerald-600 font-semibold"
+                  ? "text-accent-100 font-semibold"
                   : "text-gray-300"
               }`}
             >
@@ -29,9 +29,9 @@ export default function Navbar() {
             </Link>
             <Link
               href="/reviews"
-              className={`transition-colors hover:text-emerald-600 ${
+              className={`transition-colors hover:text-accent-100 ${
                 pathname === "/reviews"
-                  ? "text-emerald-600 font-semibold"
+                  ? "text-accent-100 font-semibold"
                   : "text-gray-300"
               }`}
             >
@@ -39,9 +39,9 @@ export default function Navbar() {
             </Link>
             <Link
               href="/about"
-              className={`transition-colors hover:text-emerald-600 ${
+              className={`transition-colors hover:text-accent-100 ${
                 pathname === "/about"
-                  ? "text-emerald-600 font-semibold"
+                  ? "text-accent-100 font-semibold"
                   : "text-gray-300"
               }`}
             >
