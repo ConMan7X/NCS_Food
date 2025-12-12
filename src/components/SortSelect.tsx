@@ -11,11 +11,8 @@ export default function SortSelect({ sort }: { sort: string }) {
   };
 
   return (
-    <div
-      data-cy="sort-by"
-      className="space-x-2 mb-4 border border-gray-300 rounded-xl pl-4"
-    >
-      <label className="text-lrg font-medium mb-1">Sort reviews</label>
+    <div data-cy="sort-by" className="space-x-2 mb-4 pl-4">
+      <label className="text-lrg font-medium m-1">Sort reviews</label>
       <select
         name="selectedSort"
         value={sort}
@@ -30,9 +27,9 @@ export default function SortSelect({ sort }: { sort: string }) {
                   shadow-sm
                   transition
                   ease-in-out
-                  focus:border-purple-500
+                  focus:border-white-500
                   focus:ring-2
-                  focus:ring-purple-400/40
+                  focus:ring-white-400/40
                   hover:border-gray-400
                   cursor-pointer
                 "
