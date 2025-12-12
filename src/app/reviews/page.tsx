@@ -16,7 +16,16 @@ export default async function Reviews(props: {
   try {
     reviews = await getReviews(sort);
   } catch (err) {
-    error = err instanceof Error ? err.message : "Failed to load review";
+    error = err instanceof Error ? err.message : "Failed to load reviews";
+  }
+
+  if (error) {
+    return (
+      <main className="flex flex-col items-center p-8 pt-24">
+        <h1 className="text-2xl font-bold">Reviews Not Found</h1>
+        <p className="mt-4">{error}</p>
+      </main>
+    );
   }
 
   return (
