@@ -6,15 +6,18 @@ import { getReviews } from "@/lib/reviews";
 import { Review } from "@/types/reviews";
 
 export default async function Reviews(props: {
-  searchParams: Promise<{ sort?: string }>;
+  searchParams: Promise<{ sort?: string; order?: "asc" | "desc" }>;
 }) {
   const searchParams = await props.searchParams;
+
   const sort = searchParams.sort ?? "date";
+  const order = searchParams.order ?? "desc";
+
   let reviews: Review[] = [];
   let error = null;
 
   try {
-    reviews = await getReviews(sort);
+    reviews = await getReviews(sort, order);
   } catch (err) {
     error = err instanceof Error ? err.message : "Failed to load reviews";
   }
@@ -32,7 +35,7 @@ export default async function Reviews(props: {
     <main className="flex flex-col items-center">
       <h1 className="text-3xl font-bold p-5">All Reviews</h1>
 
-      <SortSelect sort={sort} />
+      <SortSelect sort={sort} order={order} />
 
       <ReviewCardList reviews={reviews} showRating={sort === "rating"} />
 

@@ -2,18 +2,27 @@ import { Review } from "@/types/reviews";
 import { createClient } from "../utils/supabase/server";
 import { cookies } from "next/headers";
 
-export async function getReviews(sort: string): Promise<Review[]> {
+export async function getReviews(
+  sort: string,
+  order: "asc" | "desc"
+): Promise<Review[]> {
   const cookieStore = await cookies();
   const supabase = await createClient(cookieStore);
 
   let query = supabase.from("reviews").select("*");
 
+  let ascending = false;
+
+  if (order === "asc") {
+    ascending = true;
+  }
+
   if (sort === "date") {
-    query = query.order("created_at", { ascending: false });
+    query = query.order("created_at", { ascending: ascending });
   } else if (sort === "rating") {
-    query = query.order("rating", { ascending: false });
+    query = query.order("rating", { ascending: ascending });
   } else if (sort === "restaurantName") {
-    query = query.order("restaurant", { ascending: true });
+    query = query.order("restaurant", { ascending: ascending });
   }
 
   const { data, error } = await query;
