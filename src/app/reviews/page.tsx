@@ -34,7 +34,7 @@ export default async function Reviews(props: {
 
       <SortSelect sort={sort} />
 
-      <ReviewCardList reviews={reviews} />
+      <ReviewCardList reviews={reviews} showRating={sort === "rating"} />
 
       <Button asChild className="m-5" variant="outline">
         <Link href={`/`}>Back to Home</Link>
