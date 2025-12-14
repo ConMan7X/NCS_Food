@@ -15,7 +15,7 @@ export const UmamiAnalytics = () => {
       defer // Optional: defer can improve page load performance
       src={src}
       data-website-id={websiteId}
-      data-do-not-track="true" // Optional: respects DNT setting
+      // data-do-not-track="true" // Optional: respects DNT setting
     />
   );
 };
