@@ -5,12 +5,13 @@ import { Review } from "@/types/reviews";
 interface ReviewCardProps {
   review: Review;
   className?: string;
-  showDate?: boolean;
+  showRating?: boolean;
 }
 
 export default function ReviewCard({
   review,
   className = "",
+  showRating = false,
 }: ReviewCardProps) {
   return (
     <li
@@ -35,9 +36,13 @@ export default function ReviewCard({
 
         <div className="m-5">
           <h2 className="text-xl font-bold">{review.restaurant}</h2>
-          <p className="text-sm text-teal-400 mt-1">
-            {new Date(review.created_at).toLocaleDateString("en-AU")}
-          </p>
+          {showRating ? (
+            <p className="text-sm text-teal-400 mt-1">{review.rating}</p>
+          ) : (
+            <p className="text-sm text-teal-400 mt-1">
+              {new Date(review.created_at).toLocaleDateString("en-AU")}
+            </p>
+          )}
         </div>
       </Link>
     </li>

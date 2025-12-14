@@ -1,13 +1,23 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function SortSelect({ sort }: { sort: string }) {
+export default function SortSelect({
+  sort,
+  order,
+}: {
+  sort: string;
+  order: "asc" | "desc";
+}) {
   const router = useRouter();
 
-  const setSort = (newSort: string) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("sort", newSort);
-    router.push(`/reviews?${searchParams.toString()}`);
+  const updateParams = (key: string, value: string) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set(key, value);
+    router.push(`/reviews?${params.toString()}`);
+  };
+
+  const toggleOrder = () => {
+    updateParams("order", order === "asc" ? "desc" : "asc");
   };
 
   return (
@@ -16,9 +26,10 @@ export default function SortSelect({ sort }: { sort: string }) {
       <select
         name="selectedSort"
         value={sort}
-        onChange={(e) => setSort(e.target.value)}
+        onChange={(e) => updateParams("sort", e.target.value)}
         className="
                   w-48
+                  h-8
                   rounded-xl
                   bg-teal-900
                   p-1
@@ -38,6 +49,26 @@ export default function SortSelect({ sort }: { sort: string }) {
         <option value="rating">by Rating</option>
         <option value="restaurantName">by Restaurant Name</option>
       </select>
+
+      <button
+        type="button"
+        onClick={toggleOrder}
+        aria-label="Toggle sort order"
+        className="
+          w-8 h-8
+          rounded-full
+          bg-teal-900
+          text-white
+          shadow-sm
+          transition
+          hover:bg-teal-800
+          focus:ring-2
+          focus:ring-white-400/40
+          cursor-pointer
+        "
+      >
+        {order === "asc" ? "↑" : "↓"}
+      </button>
     </div>
   );
 }
