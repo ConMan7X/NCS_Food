@@ -1,3 +1,4 @@
+import ReviewCardList from "@/components/ReviewCardList";
 import { getReviewsWithTag, getTagById } from "@/lib/tags";
 
 interface TagPageProps {
@@ -9,13 +10,15 @@ interface TagPageProps {
 export default async function Tag({ params }: TagPageProps) {
   const { id } = await params;
 
-  let tag = await getTagById(id);
+  const tag = await getTagById(id);
 
-  let reviews = await getReviewsWithTag(id);
+  const taggedReviews = await getReviewsWithTag(id);
+  const reviews = taggedReviews.map((tr) => tr.reviews);
 
   return (
     <main className="flex flex-col items-center">
       <h1 className="text-3xl font-bold p-5">{tag.name}</h1>
+      <ReviewCardList reviews={reviews} />
     </main>
   );
 }

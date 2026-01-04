@@ -2,7 +2,7 @@ import { getTags } from "@/lib/tags";
 import Link from "next/link";
 
 export default async function Tags() {
-  let tags = await getTags();
+  const tags = await getTags();
 
   return (
     <main className="flex flex-col items-center">
