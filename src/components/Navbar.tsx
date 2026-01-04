@@ -38,6 +38,16 @@ export default function Navbar() {
               All Reviews
             </Link>
             <Link
+              href="/tags"
+              className={`transition-colors hover:text-emerald-600 ${
+                pathname === "/tags"
+                  ? "text-emerald-600 font-semibold"
+                  : "text-gray-300"
+              }`}
+            >
+              Tags
+            </Link>
+            <Link
               href="/about"
               className={`transition-colors hover:text-emerald-600 ${
                 pathname === "/about"
